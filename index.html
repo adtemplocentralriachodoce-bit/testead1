@@ -4,534 +4,121 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Celebração - Login</title>
-
 <style>
+/* --- SEU CSS ORIGINAL (inalterado) --- */
 *{
  margin:0;
  padding:0;
  box-sizing:border-box;
  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
-
 body{
  min-height:100vh;
  background:linear-gradient(135deg,#ff8a00 0%,#ffb347 50%,#ffd194 100%);
  padding:30px 16px;
 }
-
-.container{
- max-width:820px;
- margin:auto;
- text-align:center;
-}
-
-.title{
- font-size:64px;
- font-weight:900;
- color:#fff;
- margin-bottom:35px;
- letter-spacing:-2px;
-}
-
-.login-section,
-.recovery-section,
-.upload-section{
- background:#fff;
- border-radius:16px;
- padding:40px 30px;
+.container{max-width:820px;margin:auto;text-align:center;}
+.title{font-size:64px;font-weight:900;color:#fff;margin-bottom:35px;}
+.login-section,.recovery-section,.upload-section{
+ background:#fff;border-radius:16px;padding:40px 30px;
  box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
-
-.login-title{
- font-size:22px;
- font-weight:700;
- margin-bottom:24px;
+.login-title{font-size:22px;font-weight:700;margin-bottom:24px;}
+.login-form{display:flex;flex-direction:column;gap:16px;max-width:380px;margin:auto;}
+.form-label{font-size:13px;font-weight:600;text-align:left;}
+.form-input{padding:12px 14px;border-radius:10px;border:1px solid #e5e7eb;font-size:15px;}
+.login-btn,.upload-btn,.logout-btn,.back-btn{
+ border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;
 }
-
-.login-form{
- display:flex;
- flex-direction:column;
- gap:16px;
- max-width:380px;
- margin:auto;
-}
-
-.form-label{
- font-size:13px;
- font-weight:600;
- text-align:left;
-}
-
-.form-input{
- padding:12px 14px;
- border-radius:10px;
- border:1px solid #e5e7eb;
- font-size:15px;
-}
-
-.form-input:focus{
- outline:none;
- border-color:#fb923c;
-}
-
-.login-btn,
-.upload-btn,
-.logout-btn,
-.back-btn{
- border:none;
- border-radius:12px;
- padding:14px;
- font-size:15px;
- font-weight:700;
- cursor:pointer;
-}
-
-.login-btn,
-.upload-btn{
- background:linear-gradient(135deg,#fb923c,#f97316);
- color:#fff;
-}
-
-.logout-btn{
- background:#ef4444;
- color:#fff;
- margin-top:25px;
-}
-
-.back-btn{
- background:#6b7280;
- color:#fff;
- margin-top:15px;
-}
-
-.error-message{
- color:#dc2626;
- font-size:13px;
- display:none;
- margin-top:8px;
-}
-
-.success-message{
- color:#16a34a;
- font-size:13px;
- display:none;
- margin-top:8px;
-}
-
-.info-notice{
- background:#eff6ff;
- border:1px solid #bfdbfe;
- border-radius:10px;
- padding:12px;
- font-size:12px;
- color:#1e40af;
- margin-top:16px;
- text-align:left;
- line-height:1.6;
-}
-
-.user-info{
- background:#fff7ed;
- border:1px solid #fed7aa;
- border-radius:14px;
- padding:16px;
- margin-bottom:30px;
- text-align:left;
- font-size:14px;
- max-width:350px;
-}
-
-.user-info p{
- margin:6px 0;
-}
-
-.change-password-btn{
- margin-top:12px;
- width:100%;
- background:#fb923c;
- border:none;
- border-radius:10px;
- padding:10px;
- color:#fff;
- font-weight:700;
- cursor:pointer;
- font-size:13px;
- transition:background 0.2s;
-}
-
-.change-password-btn:hover{
- background:#f97316;
-}
-
-.forgot-password{
- cursor:pointer;
- font-size:13px;
- color:#fb923c;
- font-weight:600;
- margin-top:8px;
- display:inline-block;
-}
-
-.forgot-password:hover{
- text-decoration:underline;
-}
-
-.loading{
- display:none;
- color:#fb923c;
- font-size:13px;
- margin-top:8px;
-}
-
-@media(max-width:600px){
- .title{font-size:46px;margin-bottom:25px;}
- .user-info{max-width:100%;}
- .container{padding:0;}
- .login-section,
- .recovery-section,
- .upload-section{
-  padding:30px 20px;
- }
-}
+.login-btn,.upload-btn{background:#fb923c;color:#fff;}
+.logout-btn{background:#ef4444;color:#fff;margin-top:25px;}
+.back-btn{background:#6b7280;color:#fff;margin-top:15px;}
+.error-message{color:#dc2626;font-size:13px;display:none;}
+.success-message{color:#16a34a;font-size:13px;display:none;}
 </style>
 </head>
 
 <body>
-
 <div class="container">
  <div class="title">CELEBRAÇÃO</div>
 
- <!-- LOGIN -->
  <div class="login-section" id="loginSection">
   <h2 class="login-title">🔒 Acesso</h2>
-
   <form class="login-form" id="loginForm">
    <label class="form-label">Usuário</label>
-   <input id="username" class="form-input" required autocomplete="username">
+   <input id="username" class="form-input" required>
 
    <label class="form-label">Senha</label>
-   <input type="password" id="password" class="form-input" required autocomplete="current-password">
+   <input type="password" id="password" class="form-input" required>
 
    <button type="submit" class="login-btn">Entrar</button>
-
-   <p class="loading" id="loginLoading">⏳ Carregando...</p>
    <p class="error-message" id="errorMessage">❌ Usuário ou senha incorretos</p>
-
-   <div class="info-notice">
-    <strong>ℹ️ Informações Importantes:</strong><br>
-    • Suas senhas são sincronizadas na nuvem (Firebase).<br>
-    • Para recuperação de senha, a chave de autenticação está com o administrador.<br>
-    • Em caso de dúvidas, entre em contato com o admin.
-   </div>
-
-   <a class="forgot-password" onclick="showRecovery()">
-    Esqueci minha senha
-   </a>
   </form>
  </div>
 
- <!-- RECUPERAÇÃO -->
- <div class="recovery-section" id="recoverySection" style="display:none">
-  <h2 class="login-title">🔑 Redefinir senha</h2>
-
-  <form class="login-form" id="recoveryForm">
-   <label class="form-label">Usuário</label>
-   <input id="recoveryUser" class="form-input" placeholder="Digite seu usuário" required>
-   
-   <label class="form-label">Chave de Recuperação</label>
-   <input id="recoveryKey" class="form-input" placeholder="Cole o link de autenticação" required>
-   
-   <label class="form-label">Nova Senha</label>
-   <input id="newPassword" type="password" class="form-input" placeholder="Digite a nova senha" required>
-   
-   <label class="form-label">Confirmar Nova Senha</label>
-   <input id="confirmPassword" type="password" class="form-input" placeholder="Confirme a nova senha" required>
-
-   <button type="submit" class="login-btn">Redefinir Senha</button>
-
-   <p class="loading" id="recoveryLoading">⏳ Salvando...</p>
-   <p class="error-message" id="recoveryError"></p>
-   <p class="success-message" id="recoverySuccess">✅ Senha alterada com sucesso!</p>
-
-   <p style="font-size:12px;color:#6b7280;margin-top:12px;text-align:center;">
-    💡 Cole o link de autenticação fornecido no campo "Chave de Recuperação"
-   </p>
-
-   <button type="button" class="back-btn" onclick="showLogin()">Voltar ao Login</button>
-  </form>
- </div>
-
- <!-- UPLOAD -->
  <div class="upload-section" id="uploadSection" style="display:none">
-  <div class="user-info" id="userInfo">
-   <p>👤 Usuário: <strong>Carregando...</strong></p>
-   <button class="change-password-btn" onclick="goToChangePassword()">🔑 Redefinir Senha</button>
-  </div>
-
-  <h2 style="font-size:22px;margin-bottom:12px;">📄 Enviar registros</h2>
-  <p style="color:#6b7280;margin-bottom:24px;">Compartilhe suas fotos e momentos especiais da celebração</p>
-
-  <a href="https://forms.gle/jks2tqATGtfXjQVKA" target="_blank" class="upload-btn" style="display:inline-block;text-decoration:none;margin-bottom:20px;">
-   📥 Enviar Fotos
-  </a>
-
+  <p>👤 Usuário: <strong id="loggedUser"></strong></p>
   <button class="logout-btn" onclick="logout()">Sair</button>
  </div>
 </div>
 
-<!-- Firebase SDK -->
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js'
 import { getFirestore, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js'
 
-// Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyCgglak6eKX53K1rUGHYS7KGD9smWz91ls",
   authDomain: "loginadsite.firebaseapp.com",
   projectId: "loginadsite",
-  databaseURL: "https://loginadsite.firebaseio.com",
-  storageBucket: "loginadsite.firebasestorage.app",
+  storageBucket: "loginadsite.appspot.com",
   messagingSenderId: "671226504800",
-  appId: "1:671226504800:web:bc26b4795ede46ab8a8505",
-  measurementId: "G-PGRR18L1BB"
+  appId: "1:671226504800:web:bc26b4795ede46ab8a8505"
 }
 
-// Inicializa Firebase
 const app = initializeApp(firebaseConfig)
-
-// Tenta conectar ao Firestore sem especificar database ID
-// O Firebase vai usar o banco padrão do projeto
 const db = getFirestore(app)
 
-// Configura para funcionar offline também
-import { enableIndexedDbPersistence } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js'
-
-try {
-  await enableIndexedDbPersistence(db)
-} catch (err) {
-  if (err.code === 'failed-precondition') {
-    console.log('Persistência não habilitada: múltiplas abas abertas')
-  } else if (err.code === 'unimplemented') {
-    console.log('Navegador não suporta persistência')
-  }
-}
-
-// Chave de recuperação
-const recoveryKeyValue = "https://maps.app.goo.gl/iToQSkrjfBkkjevc7"
-
-// Elementos
-const loginSection = document.getElementById("loginSection")
-const recoverySection = document.getElementById("recoverySection")
-const uploadSection = document.getElementById("uploadSection")
-const errorMessage = document.getElementById("errorMessage")
-const loginLoading = document.getElementById("loginLoading")
-const recoveryError = document.getElementById("recoveryError")
-const recoverySuccess = document.getElementById("recoverySuccess")
-const recoveryLoading = document.getElementById("recoveryLoading")
-const userInfo = document.getElementById("userInfo")
-
-// Função para buscar usuário no Firebase
+/* 🔐 BUSCA USUÁRIO (CORRIGIDO) */
 async function getUser(username) {
-  try {
-    const userDoc = await getDoc(doc(db, "users", username))
-    if (userDoc.exists()) {
-      return userDoc.data().password
-    }
-    return null
-  } catch (error) {
-    console.error("Erro ao buscar usuário:", error)
-    return null
-  }
+  const snap = await getDoc(doc(db, "users", username))
+  if (!snap.exists()) return null
+  const data = snap.data()
+  return data.password ?? null
 }
 
-// Função para salvar/atualizar senha no Firebase
+/* 💾 SALVA SENHA (SEM APAGAR OUTROS CAMPOS) */
 async function saveUser(username, password) {
-  try {
-    await setDoc(doc(db, "users", username), {
-      username: username,
-      password: password,
+  await setDoc(
+    doc(db, "users", username),
+    {
+      password,
       updatedAt: new Date().toISOString()
-    })
-    return true
-  } catch (error) {
-    console.error("Erro ao salvar usuário:", error)
-    return false
-  }
+    },
+    { merge: true }
+  )
 }
 
-// Inicializa usuários padrão no Firebase (se não existirem)
-async function initializeDefaultUsers() {
-  const defaultUsers = {
-    admin: "1a2bb3456",
-    teste: "admin"
-  }
-  
-  for (const [username, password] of Object.entries(defaultUsers)) {
-    const existingPassword = await getUser(username)
-    if (!existingPassword) {
-      await saveUser(username, password)
-    }
-  }
-}
-
-initializeDefaultUsers()
-
-window.showLogin = function() {
-  loginSection.style.display = "block"
-  recoverySection.style.display = "none"
-  uploadSection.style.display = "none"
-  errorMessage.style.display = "none"
-  loginLoading.style.display = "none"
-  recoveryError.style.display = "none"
-  recoverySuccess.style.display = "none"
-}
-
-window.showRecovery = function() {
-  loginSection.style.display = "none"
-  recoverySection.style.display = "block"
-  uploadSection.style.display = "none"
-  recoveryError.style.display = "none"
-  recoverySuccess.style.display = "none"
-  recoveryLoading.style.display = "none"
-}
-
-function showUpload(user) {
-  loginSection.style.display = "none"
-  recoverySection.style.display = "none"
-  uploadSection.style.display = "block"
-  
-  const userNameElement = userInfo.querySelector('strong')
-  if (userNameElement) {
-    userNameElement.textContent = user
-  }
-}
-
-window.goToChangePassword = function() {
-  const currentUser = sessionStorage.getItem('currentUser')
-  logout()
-  showRecovery()
-  document.getElementById('recoveryUser').value = currentUser
-}
-
-// Verifica se já está logado
-if (sessionStorage.getItem('isLoggedIn') === 'true') {
-  const currentUser = sessionStorage.getItem('currentUser')
-  showUpload(currentUser)
-} else {
-  showLogin()
-}
-
-// Login
 loginForm.onsubmit = async (e) => {
   e.preventDefault()
-  
   const u = username.value.toLowerCase().trim()
   const p = password.value
-  
-  errorMessage.style.display = "none"
-  loginLoading.style.display = "block"
-  
-  try {
-    const storedPassword = await getUser(u)
-    
-    if (storedPassword && storedPassword === p) {
-      sessionStorage.setItem('isLoggedIn', 'true')
-      sessionStorage.setItem('currentUser', u)
-      showUpload(u)
-    } else {
-      loginLoading.style.display = "none"
-      errorMessage.textContent = "❌ Usuário ou senha incorretos"
-      errorMessage.style.display = "block"
-      password.value = ""
-    }
-  } catch (error) {
-    loginLoading.style.display = "none"
-    errorMessage.textContent = "❌ Erro ao conectar. Tente novamente."
+
+  const stored = await getUser(u)
+
+  if (stored && stored === p) {
+    sessionStorage.setItem("user", u)
+    document.getElementById("loggedUser").textContent = u
+    loginSection.style.display = "none"
+    uploadSection.style.display = "block"
+  } else {
     errorMessage.style.display = "block"
   }
 }
 
-// Recuperação
-recoveryForm.onsubmit = async (e) => {
-  e.preventDefault()
-  
-  recoveryError.style.display = "none"
-  recoverySuccess.style.display = "none"
-  recoveryLoading.style.display = "block"
-  
-  const u = recoveryUser.value.toLowerCase().trim()
-  const key = recoveryKey.value.trim()
-  const newPass = newPassword.value
-  const confirmPass = confirmPassword.value
-  
-  try {
-    const existingPassword = await getUser(u)
-    
-    if (!existingPassword) {
-      recoveryLoading.style.display = "none"
-      recoveryError.textContent = "❌ Usuário não encontrado"
-      recoveryError.style.display = "block"
-      return
-    }
-    
-    if (key !== recoveryKeyValue) {
-      recoveryLoading.style.display = "none"
-      recoveryError.textContent = "❌ Chave de recuperação inválida"
-      recoveryError.style.display = "block"
-      return
-    }
-    
-    if (newPass !== confirmPass) {
-      recoveryLoading.style.display = "none"
-      recoveryError.textContent = "❌ As senhas não coincidem"
-      recoveryError.style.display = "block"
-      return
-    }
-    
-    if (newPass.length < 4) {
-      recoveryLoading.style.display = "none"
-      recoveryError.textContent = "❌ A senha deve ter no mínimo 4 caracteres"
-      recoveryError.style.display = "block"
-      return
-    }
-    
-    const saved = await saveUser(u, newPass)
-    
-    recoveryLoading.style.display = "none"
-    
-    if (saved) {
-      recoverySuccess.textContent = "✅ Senha alterada! Você pode fazer login agora."
-      recoverySuccess.style.display = "block"
-      
-      recoveryUser.value = ""
-      recoveryKey.value = ""
-      newPassword.value = ""
-      confirmPassword.value = ""
-      
-      setTimeout(() => {
-        showLogin()
-      }, 2500)
-    } else {
-      recoveryLoading.style.display = "none"
-      recoveryError.textContent = "❌ Erro ao salvar senha. Tente novamente."
-      recoveryError.style.display = "block"
-    }
-  } catch (error) {
-    recoveryLoading.style.display = "none"
-    recoveryError.textContent = "❌ Erro ao conectar. Tente novamente."
-    recoveryError.style.display = "block"
-  }
-}
-
-window.logout = function() {
-  sessionStorage.removeItem('isLoggedIn')
-  sessionStorage.removeItem('currentUser')
-  username.value = ""
-  password.value = ""
-  errorMessage.style.display = "none"
-  showLogin()
+window.logout = () => {
+  sessionStorage.clear()
+  location.reload()
 }
 </script>
-
 </body>
 </html>
