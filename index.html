@@ -5,32 +5,132 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Celebração - Login</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;}
-body{min-height:100vh;background:linear-gradient(135deg,#ff8a00 0%,#ffb347 50%,#ffd194 100%);padding:30px 16px;}
-.container{max-width:820px;margin:auto;text-align:center;}
-.title{font-size:64px;font-weight:900;color:#fff;margin-bottom:35px;letter-spacing:-2px;}
-.login-section,.recovery-section,.upload-section{background:#fff;border-radius:16px;padding:40px 30px;box-shadow:0 10px 25px rgba(0,0,0,.08);}
-.login-title{font-size:22px;font-weight:700;margin-bottom:24px;}
-.login-form{display:flex;flex-direction:column;gap:16px;max-width:380px;margin:auto;}
-.form-label{font-size:13px;font-weight:600;text-align:left;}
-.form-input{padding:12px 14px;border-radius:10px;border:1px solid #e5e7eb;font-size:15px;}
-.form-input:focus{outline:none;border-color:#fb923c;}
-.login-btn,.upload-btn,.logout-btn,.back-btn,.reset-btn{border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;}
-.login-btn,.upload-btn{background:linear-gradient(135deg,#fb923c,#f97316);color:#fff;}
-.logout-btn{background:#ef4444;color:#fff;margin-top:25px;}
-.back-btn{background:#6b7280;color:#fff;margin-top:15px;}
-.reset-btn{background:#3b82f6;color:#fff;margin-top:8px;}
-.error-message{color:#dc2626;font-size:13px;display:none;margin-top:8px;}
-.success-message{color:#16a34a;font-size:13px;display:none;margin-top:8px;}
-.info-notice{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px;font-size:12px;color:#1e40af;margin-top:16px;text-align:left;line-height:1.6;}
-.user-info{background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:16px;margin-bottom:30px;text-align:left;font-size:14px;max-width:350px;}
-.user-info p{margin:6px 0;}
-.change-password-btn{margin-top:12px;width:100%;background:#fb923c;border:none;border-radius:10px;padding:10px;color:#fff;font-weight:700;cursor:pointer;font-size:13px;transition:background 0.2s;}
-.change-password-btn:hover{background:#f97316;}
-.forgot-password{cursor:pointer;font-size:13px;color:#fb923c;font-weight:600;margin-top:8px;display:inline-block;}
-.forgot-password:hover{text-decoration:underline;}
-.loading{display:none;color:#fb923c;font-size:13px;margin-top:8px;}
-@media(max-width:600px){.title{font-size:46px;margin-bottom:25px;}.user-info{max-width:100%;}.container{padding:0;}.login-section,.recovery-section,.upload-section{padding:30px 20px;}}
+*{
+ margin:0;
+ padding:0;
+ box-sizing:border-box;
+ font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+}
+
+body{
+ min-height:100vh;
+ background:linear-gradient(135deg,#ff8a00 0%,#ffb347 50%,#ffd194 100%);
+ padding:30px 16px;
+}
+
+.container{
+ max-width:820px;
+ margin:auto;
+ text-align:center;
+}
+
+.title{
+ font-size:64px;
+ font-weight:900;
+ color:#fff;
+ margin-bottom:35px;
+ letter-spacing:-2px;
+}
+
+.login-section,
+.recovery-section,
+.upload-section{
+ background:#fff;
+ border-radius:16px;
+ padding:40px 30px;
+ box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.login-title{
+ font-size:22px;
+ font-weight:700;
+ margin-bottom:24px;
+}
+
+.login-form{
+ display:flex;
+ flex-direction:column;
+ gap:16px;
+ max-width:380px;
+ margin:auto;
+}
+
+.form-label{
+ font-size:13px;
+ font-weight:600;
+ text-align:left;
+}
+
+.form-input{
+ padding:12px 14px;
+ border-radius:10px;
+ border:1px solid #e5e7eb;
+ font-size:15px;
+}
+
+.form-input:focus{
+ outline:none;
+ border-color:#fb923c;
+}
+
+.login-btn,
+.logout-btn,
+.back-btn{
+ border:none;
+ border-radius:12px;
+ padding:14px;
+ font-size:15px;
+ font-weight:700;
+ cursor:pointer;
+}
+
+.login-btn{
+ background:linear-gradient(135deg,#fb923c,#f97316);
+ color:#fff;
+}
+
+.logout-btn{
+ background:#ef4444;
+ color:#fff;
+ margin-top:25px;
+}
+
+.back-btn{
+ background:#6b7280;
+ color:#fff;
+ margin-top:15px;
+}
+
+.error-message{
+ color:#dc2626;
+ font-size:13px;
+ display:none;
+ margin-top:8px;
+}
+
+.success-message{
+ color:#16a34a;
+ font-size:13px;
+ display:none;
+ margin-top:8px;
+}
+
+.loading{
+ display:none;
+ color:#fb923c;
+ font-size:13px;
+ margin-top:8px;
+}
+
+@media(max-width:600px){
+ .title{font-size:46px;margin-bottom:25px;}
+ .container{padding:0;}
+ .login-section,
+ .recovery-section,
+ .upload-section{
+  padding:30px 20px;
+ }
+}
 </style>
 </head>
 <body>
@@ -49,12 +149,6 @@ body{min-height:100vh;background:linear-gradient(135deg,#ff8a00 0%,#ffb347 50%,#
    <button type="submit" class="login-btn">Entrar</button>
    <p class="loading" id="loginLoading">⏳ Carregando...</p>
    <p class="error-message" id="errorMessage">❌ Usuário ou senha incorretos</p>
-   <div class="info-notice">
-    <strong>ℹ️ Informações Importantes:</strong><br>
-    • Suas senhas são sincronizadas na nuvem (Firebase).<br>
-    • Para recuperação de senha, utilize seu e-mail registrado.<br>
-    • Em caso de dúvidas, entre em contato com o admin.
-   </div>
    <a class="forgot-password" onclick="showRecovery()">Esqueci minha senha</a>
   </form>
  </div>
@@ -64,8 +158,8 @@ body{min-height:100vh;background:linear-gradient(135deg,#ff8a00 0%,#ffb347 50%,#
   <h2 class="login-title">🔑 Redefinir senha</h2>
   <form class="login-form" id="recoveryForm">
    <label class="form-label">E-mail cadastrado</label>
-   <input id="recoveryEmail" class="form-input" placeholder="Digite seu e-mail" required>
-   <button type="submit" class="reset-btn">Enviar link de redefinição</button>
+   <input type="email" id="recoveryEmail" class="form-input" placeholder="Digite seu e-mail" required>
+   <button type="submit" class="login-btn">Enviar link de redefinição</button>
    <p class="loading" id="recoveryLoading">⏳ Enviando...</p>
    <p class="error-message" id="recoveryError"></p>
    <p class="success-message" id="recoverySuccess">✅ Link enviado! Verifique seu e-mail.</p>
@@ -75,40 +169,31 @@ body{min-height:100vh;background:linear-gradient(135deg,#ff8a00 0%,#ffb347 50%,#
 
  <!-- UPLOAD -->
  <div class="upload-section" id="uploadSection" style="display:none">
-  <div class="user-info" id="userInfo">
-   <p>👤 Usuário: <strong>Carregando...</strong></p>
-   <button class="change-password-btn" onclick="showRecovery()">🔑 Redefinir Senha</button>
-  </div>
   <h2 style="font-size:22px;margin-bottom:12px;">📄 Enviar registros</h2>
   <p style="color:#6b7280;margin-bottom:24px;">Compartilhe suas fotos e momentos especiais da celebração</p>
-  <a href="https://forms.gle/jks2tqATGtfXjQVKA" target="_blank" class="upload-btn" style="display:inline-block;text-decoration:none;margin-bottom:20px;">
-   📥 Enviar Fotos
-  </a>
+  <a href="https://forms.gle/jks2tqATGtfXjQVKA" target="_blank" class="login-btn" style="display:inline-block;text-decoration:none;margin-bottom:20px;">📥 Enviar Fotos</a>
   <button class="logout-btn" onclick="logout()">Sair</button>
  </div>
 </div>
 
-<!-- Firebase SDK -->
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js'
+import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js'
 import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js'
 
-// Firebase Config
 const firebaseConfig = {
-  apiKey: "AIzaSyCgglak6eK53K1rUGHYS7KGD9smWz91ls",
+  apiKey: "AIzaSyCgglak6eKX53K1rUGHYS7KGD9smWz91ls",
   authDomain: "loginadsite.firebaseapp.com",
   projectId: "loginadsite",
   storageBucket: "loginadsite.appspot.com",
   messagingSenderId: "671226504800",
-  appId: "1:671226504800:web:bc26b4795ede46ab8a8505",
-  measurementId: "G-PGRR18L1BB"
+  appId: "1:671226504800:web:bc26b4795ede46ab8a8505"
 }
 
-// Inicializa Firebase
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
+const db = getFirestore(app)
 
-// Elementos
 const loginSection = document.getElementById("loginSection")
 const recoverySection = document.getElementById("recoverySection")
 const uploadSection = document.getElementById("uploadSection")
@@ -117,9 +202,8 @@ const loginLoading = document.getElementById("loginLoading")
 const recoveryError = document.getElementById("recoveryError")
 const recoverySuccess = document.getElementById("recoverySuccess")
 const recoveryLoading = document.getElementById("recoveryLoading")
-const userInfo = document.getElementById("userInfo")
 
-window.showLogin = function(){
+window.showLogin = function() {
   loginSection.style.display="block"
   recoverySection.style.display="none"
   uploadSection.style.display="none"
@@ -129,7 +213,7 @@ window.showLogin = function(){
   recoverySuccess.style.display="none"
 }
 
-window.showRecovery = function(){
+window.showRecovery = function() {
   loginSection.style.display="none"
   recoverySection.style.display="block"
   uploadSection.style.display="none"
@@ -138,66 +222,55 @@ window.showRecovery = function(){
   recoveryLoading.style.display="none"
 }
 
-function showUpload(user){
+function showUpload() {
   loginSection.style.display="none"
   recoverySection.style.display="none"
   uploadSection.style.display="block"
-  const userNameElement = userInfo.querySelector('strong')
-  if(userNameElement) userNameElement.textContent = user
 }
 
-window.logout = function(){
-  sessionStorage.removeItem('isLoggedIn')
-  sessionStorage.removeItem('currentUser')
-  username.value=""
-  password.value=""
-  errorMessage.style.display="none"
+window.logout = function() {
+  auth.signOut()
   showLogin()
 }
 
-// Login
-loginForm.onsubmit = async (e)=>{
+loginForm.onsubmit = async (e) => {
   e.preventDefault()
-  const email = username.value.trim() + "@seu-dominio.com" // se quiser usar email fictício pro Auth
-  const pass = password.value
   loginLoading.style.display="block"
   errorMessage.style.display="none"
-  try{
-    await signInWithEmailAndPassword(auth,email,pass)
-    sessionStorage.setItem('isLoggedIn','true')
-    sessionStorage.setItem('currentUser',username.value)
-    showUpload(username.value)
-  }catch(err){
+  const u = username.value.trim()
+  const p = password.value.trim()
+
+  try {
+    // Usa Firebase Auth para login por e-mail
+    await signInWithEmailAndPassword(auth, u, p)
+    loginLoading.style.display="none"
+    showUpload()
+  } catch (err) {
     loginLoading.style.display="none"
     errorMessage.textContent="❌ Usuário ou senha incorretos"
     errorMessage.style.display="block"
   }
 }
 
-// Redefinir senha
-recoveryForm.onsubmit = async (e)=>{
+recoveryForm.onsubmit = async (e) => {
   e.preventDefault()
-  const email = recoveryEmail.value.trim()
-  recoveryLoading.style.display="block"
   recoveryError.style.display="none"
   recoverySuccess.style.display="none"
-  try{
-    await sendPasswordResetEmail(auth,email)
+  recoveryLoading.style.display="block"
+
+  const email = recoveryEmail.value.trim()
+  try {
+    await sendPasswordResetEmail(auth, email)
     recoveryLoading.style.display="none"
     recoverySuccess.style.display="block"
-  }catch(err){
+    recoveryEmail.value = ""
+  } catch(err) {
     recoveryLoading.style.display="none"
-    recoveryError.textContent="❌ Erro ao enviar e-mail. Verifique o endereço."
+    recoveryError.textContent = "❌ E-mail não encontrado ou inválido"
     recoveryError.style.display="block"
   }
 }
-
-// Se já estiver logado
-if(sessionStorage.getItem('isLoggedIn')==='true'){
-  showUpload(sessionStorage.getItem('currentUser'))
-}else{
-  showLogin()
-}
 </script>
+
 </body>
 </html>
