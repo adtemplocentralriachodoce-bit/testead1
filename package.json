@@ -1,6 +1,10 @@
 {
-  "name": "celebracao",
-  "scripts": { "start": "node server.js" },
+  "name": "celebracao-login",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "express": "^4.18.0",
     "mongoose": "^7.0.0",
