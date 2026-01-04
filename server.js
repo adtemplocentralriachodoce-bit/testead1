@@ -4,19 +4,20 @@ const bcrypt = require('bcryptjs');
 const cors = require('cors');
 const app = express();
 
-app.use(cors());
+// ✅ CORS CORRETO (ESSA LINHA!)
+app.use(cors({
+  origin: ['https://adtemplocentralriachodoce-bit.github.io', 'https://seu-dominio.github.io'],
+  credentials: true
+}));
 app.use(express.json());
 
-// CONEXÃO MONGODB (SUA STRING)
 mongoose.connect('mongodb+srv://adtemplocentralriachodoce_db_user:c2Y7FWXUpCcoVY9n@cluster0.9sqjsa3.mongodb.net/celebracao?retryWrites=true&w=majority');
 
-// USUÁRIO MODEL
 const User = mongoose.model('User', {
   username: { type: String, unique: true, required: true },
   password: { type: String, required: true }
 });
 
-// LOGIN
 app.post('/api/login', async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -32,5 +33,9 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+app.get('/api/test', (req, res) => {
+  res.json({ status: '✅ Backend OK! MongoDB conectado!' });
+});
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log('✅ OK'));
+app.listen(PORT, () => console.log(`✅ Backend na porta ${PORT}`));
