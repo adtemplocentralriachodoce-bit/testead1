@@ -5,138 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Celebração - Login</title>
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-}
-body{
-  min-height:100vh;
-  background:linear-gradient(135deg,#ff8a00 0%,#ffb347 50%,#ffd194 100%);
-  padding:30px 16px;
-}
-.container{
-  max-width:1000px;
-  margin:auto;
-  text-align:center;
-}
-.title{
-  font-size:64px;
-  font-weight:900;
-  color:#fff;
-  margin-bottom:35px;
-  letter-spacing:-2px;
-}
-.login-section,
-.recovery-section,
-.user-section{
-  background:#fff;
-  border-radius:16px;
-  padding:40px 30px;
-  box-shadow:0 10px 25px rgba(0,0,0,.08);
-  margin-bottom:20px;
-}
-.login-title, .section-title{
-  font-size:22px;
-  font-weight:700;
-  margin-bottom:24px;
-}
-.login-form{
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-  max-width:380px;
-  margin:auto;
-}
-.form-label{
-  font-size:13px;
-  font-weight:600;
-  text-align:left;
-}
-.form-input{
-  padding:12px 14px;
-  border-radius:10px;
-  border:1px solid #e5e7eb;
-  font-size:15px;
-}
-.form-input:focus{
-  outline:none;
-  border-color:#fb923c;
-}
-.login-btn, .upload-btn, .nav-btn{
-  border:none;
-  border-radius:12px;
-  padding:14px;
-  font-size:15px;
-  font-weight:700;
-  cursor:pointer;
-}
-.login-btn, .upload-btn{
-  background:linear-gradient(135deg,#fb923c,#f97316);
-  color:#fff;
-}
-.logout-btn{
-  background:#ef4444;
-  color:#fff;
-  margin-top:25px;
-}
-.back-btn, .nav-btn{
-  background:#6b7280;
-  color:#fff;
-  margin-top:15px;
-}
-.error-message, .success-message{
-  font-size:13px;
-  display:none;
-  margin-top:8px;
-}
-.error-message{ color:#dc2626; }
-.success-message{ color:#16a34a; }
-.loading{ display:none; color:#fb923c; font-size:13px; margin-top:8px; }
-.user-info{
-  background:#fff7ed;
-  border:1px solid #fed7aa;
-  border-radius:14px;
-  padding:16px;
-  margin-bottom:30px;
-  text-align:left;
-  font-size:14px;
-  max-width:350px;
-  margin:auto;
-}
-.user-info p{ margin:6px 0; }
-.nav-buttons{ 
-  display:flex; 
-  gap:15px; 
-  justify-content:center; 
-  flex-wrap:wrap; 
-  max-width:500px; 
-  margin:auto; 
-}
-.warning{
-  background:#fef3c7;
-  border:1px solid #f59e0b;
-  border-radius:12px;
-  padding:20px;
-  margin:25px auto;
-  max-width:500px;
-  text-align:left;
-  font-size:14px;
-}
-.warning-icon{
-  display:inline-block;
-  width:20px;
-  height:20px;
-  background:linear-gradient(45deg,#f59e0b,#fbbf24);
-  border-radius:50%;
-  margin-right:10px;
-  vertical-align:middle;
-}
-@media(max-width:600px){
-  .title{font-size:46px;margin-bottom:25px;}
-  .nav-buttons{ flex-direction:column; align-items:center; }
-}
+* { margin:0; padding:0; box-sizing:border-box; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; }
+body { min-height:100vh; background:linear-gradient(135deg,#ff8a00 0%,#ffb347 50%,#ffd194 100%); padding:30px 16px; }
+.container { max-width:1000px; margin:auto; text-align:center; }
+.title { font-size:64px; font-weight:900; color:#fff; margin-bottom:35px; letter-spacing:-2px; }
+.login-section, .user-section { background:#fff; border-radius:16px; padding:40px 30px; box-shadow:0 10px 25px rgba(0,0,0,.08); margin-bottom:20px; }
+.login-title, .section-title { font-size:22px; font-weight:700; margin-bottom:24px; }
+.login-form { display:flex; flex-direction:column; gap:16px; max-width:380px; margin:auto; }
+.form-label { font-size:13px; font-weight:600; text-align:left; }
+.form-input { padding:12px 14px; border-radius:10px; border:1px solid #e5e7eb; font-size:15px; }
+.form-input:focus { outline:none; border-color:#fb923c; }
+.login-btn, .upload-btn { border:none; border-radius:12px; padding:14px; font-size:15px; font-weight:700; cursor:pointer; background:linear-gradient(135deg,#fb923c,#f97316); color:#fff; }
+.logout-btn { background:#ef4444; color:#fff; margin-top:25px; border:none; border-radius:12px; padding:14px; font-size:15px; font-weight:700; cursor:pointer; }
+.error-message, .success-message { font-size:13px; display:none; margin-top:8px; }
+.error-message { color:#dc2626; } .success-message { color:#16a34a; }
+.loading { display:none; color:#fb923c; font-size:13px; margin-top:8px; }
+.user-info { background:#fff7ed; border:1px solid #fed7aa; border-radius:14px; padding:16px; margin-bottom:30px; text-align:left; font-size:14px; max-width:350px; margin:auto; }
+.user-info p { margin:6px 0; }
+.warning { background:#fef3c7; border:1px solid #f59e0b; border-radius:12px; padding:20px; margin:25px auto; max-width:500px; text-align:left; font-size:14px; }
+@media(max-width:600px) { .title { font-size:46px; margin-bottom:25px; } }
 </style>
 </head>
 <body>
@@ -147,59 +34,42 @@ body{
   <div class="login-section" id="loginSection">
     <h2 class="login-title">Acesso</h2>
     <form class="login-form" id="loginForm">
-      <label class="form-label">Usuário</label>
-      <input id="username" class="form-input" required>
+      <label class="form-label">E-mail</label>
+      <input id="email" type="email" class="form-input" required>
       <label class="form-label">Senha</label>
-      <input type="password" id="password" class="form-input" required>
+      <input id="password" type="password" class="form-input" required>
       <button type="submit" class="login-btn">Entrar</button>
       <p class="loading" id="loginLoading">Carregando...</p>
       <p class="error-message" id="errorMessage"></p>
-      <button type="button" class="back-btn" onclick="showRecovery()">Esqueci minha senha</button>
+      <button type="button" class="login-btn" id="registerBtn" style="background:#10b981;">Criar Conta</button>
     </form>
   </div>
 
-  <!-- RECUPERAÇÃO -->
-  <div class="recovery-section" id="recoverySection" style="display:none">
-    <h2 class="login-title">Redefinir senha</h2>
-    <form class="login-form" id="recoveryForm">
-      <input id="recoveryUser" class="form-input" placeholder="Usuário" required>
-      <input id="recoveryKey" class="form-input" placeholder="Chave de recuperação" required>
-      <input id="newPassword" type="password" class="form-input" placeholder="Nova senha" required>
-      <input id="confirmPassword" type="password" class="form-input" placeholder="Confirmar senha" required>
-      <button type="submit" class="login-btn">Salvar nova senha</button>
-      <p class="loading" id="recoveryLoading">Salvando...</p>
-      <p class="error-message" id="recoveryError"></p>
-      <p class="success-message" id="recoverySuccess"></p>
-      <button type="button" class="back-btn" onclick="showLogin()">Voltar</button>
-    </form>
-  </div>
-
-  <!-- ÁREA LOGADA COM LINK DO GOOGLE FORMS -->
+  <!-- ÁREA LOGADA -->
   <div class="user-section" id="userSection" style="display:none">
     <h2 class="section-title">Bem-vindo!</h2>
     <div class="user-info">
-      <p>Usuário: <strong id="userName"></strong></p>
+      <p>E-mail: <strong id="userEmail"></strong></p>
     </div>
     
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSeVA_IrvRJr7cG6z1RCwzxRhI2WNvi-lI7U0oN96mFmq6awsA/viewform" 
-       class="upload-btn" target="_blank">
+       class="upload-btn" target="_blank" style="display:inline-block;">
       📸 Enviar Fotos
     </a>
 
     <div class="warning">
-      <span class="warning-icon"></span>
+      <span style="color:#f59e0b; font-weight:bold;">⚠️</span>
       <span>Importante: Envie suas fotos para registrarmos os momentos</span>
     </div>
 
-    <div class="nav-buttons">
-      <button class="nav-btn" onclick="logout()">Sair</button>
-    </div>
+    <button class="logout-btn" id="logoutBtn">Sair</button>
   </div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"
-import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
 
 const firebaseConfig = {
   apiKey: "AIzaSyCgglak6eKX53K1rUGHYS7KGD9smWz91ls",
@@ -211,107 +81,70 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getFirestore(app);
 
-const RECOVERY_KEY = "https://maps.app.goo.gl/iToQSkrjfBkkjevc7";
-let currentUser = null;
-
+// Elementos
 const loginSection = document.getElementById("loginSection");
-const recoverySection = document.getElementById("recoverySection");
 const userSection = document.getElementById("userSection");
-const userName = document.getElementById("userName");
+const userEmail = document.getElementById("userEmail");
+const loginForm = document.getElementById("loginForm");
+const loginLoading = document.getElementById("loginLoading");
+const errorMessage = document.getElementById("errorMessage");
 
-async function getUser(username) {
-  const snap = await getDoc(doc(db, "users", username));
-  return snap.exists() ? snap.data() : null;
-}
-
-async function updatePassword(username, password) {
-  await setDoc(doc(db, "users", username), { password }, { merge: true });
-}
-
-window.showRecovery = () => { 
-  loginSection.style.display = "none"; 
-  recoverySection.style.display = "block"; 
-};
-
-window.showLogin = () => { 
-  recoverySection.style.display = "none"; 
-  loginSection.style.display = "block"; 
-};
-
-window.logout = () => { 
-  sessionStorage.clear(); 
-  currentUser = null;
-  location.reload(); 
-};
-
-// Login
-document.getElementById("loginForm").onsubmit = async e => {
-  e.preventDefault();
-  const loading = document.getElementById("loginLoading");
-  const error = document.getElementById("errorMessage");
-  
-  loading.style.display = "block";
-  error.style.display = "none";
-  
-  const u = document.getElementById("username").value.trim();
-  const p = document.getElementById("password").value;
-  
-  try {
-    const user = await getUser(u);
-    if (!user || user.password !== p) throw 0;
-    
-    currentUser = u;
-    sessionStorage.setItem("user", u);
-    userName.textContent = u;
+// Monitora estado de autenticação
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    userEmail.textContent = user.email;
     loginSection.style.display = "none";
     userSection.style.display = "block";
-  } catch {
-    error.textContent = "Usuário ou senha inválidos";
-    error.style.display = "block";
-  } finally {
-    loading.style.display = "none";
+  } else {
+    loginSection.style.display = "block";
+    userSection.style.display = "none";
   }
-};
+});
 
-// Recuperação
-document.getElementById("recoveryForm").onsubmit = async e => {
+// Login
+loginForm.onsubmit = async (e) => {
   e.preventDefault();
-  const loading = document.getElementById("recoveryLoading");
-  const error = document.getElementById("recoveryError");
-  const success = document.getElementById("recoverySuccess");
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
   
-  loading.style.display = "block";
-  error.style.display = "none";
-  success.style.display = "none";
+  loginLoading.style.display = "block";
+  errorMessage.style.display = "none";
   
   try {
-    if (document.getElementById("recoveryKey").value !== RECOVERY_KEY) throw 0;
-    if (document.getElementById("newPassword").value !== document.getElementById("confirmPassword").value) throw 0;
-    
-    await updatePassword(
-      document.getElementById("recoveryUser").value,
-      document.getElementById("newPassword").value
-    );
-    
-    success.textContent = "Senha atualizada com sucesso!";
-    success.style.display = "block";
-  } catch {
-    error.textContent = "Não foi possível redefinir a senha";
-    error.style.display = "block";
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    errorMessage.textContent = "E-mail ou senha inválidos";
+    errorMessage.style.display = "block";
   } finally {
-    loading.style.display = "none";
+    loginLoading.style.display = "none";
   }
 };
 
-// Auto-login
-if (sessionStorage.getItem("user")) {
-  currentUser = sessionStorage.getItem("user");
-  userName.textContent = currentUser;
-  loginSection.style.display = "none";
-  userSection.style.display = "block";
-}
+// Criar conta
+document.getElementById("registerBtn").onclick = async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  
+  loginLoading.style.display = "block";
+  errorMessage.style.display = "none";
+  
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    errorMessage.textContent = "Erro ao criar conta";
+    errorMessage.style.display = "block";
+  } finally {
+    loginLoading.style.display = "none";
+  }
+};
+
+// Logout
+document.getElementById("logoutBtn").onclick = () => {
+  signOut(auth);
+};
 </script>
 </body>
 </html>
