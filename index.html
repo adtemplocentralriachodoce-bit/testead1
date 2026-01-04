@@ -15,14 +15,18 @@ body { min-height:100vh; background:linear-gradient(135deg,#ff8a00 0%,#ffb347 50
 .form-label { font-size:13px; font-weight:600; text-align:left; }
 .form-input { padding:12px 14px; border-radius:10px; border:1px solid #e5e7eb; font-size:15px; }
 .form-input:focus { outline:none; border-color:#fb923c; }
-.login-btn, .upload-btn { border:none; border-radius:12px; padding:14px; font-size:15px; font-weight:700; cursor:pointer; background:linear-gradient(135deg,#fb923c,#f97316); color:#fff; }
+.login-btn, .upload-btn, .register-btn { 
+  border:none; border-radius:12px; padding:14px; font-size:15px; font-weight:700; cursor:pointer; 
+}
+.login-btn, .upload-btn, .register-btn { background:linear-gradient(135deg,#fb923c,#f97316); color:#fff; }
+.register-btn { background:linear-gradient(135deg,#10b981,#059669); margin-top:10px; }
 .logout-btn { background:#ef4444; color:#fff; margin-top:25px; border:none; border-radius:12px; padding:14px; font-size:15px; font-weight:700; cursor:pointer; }
-.error-message, .success-message { font-size:13px; display:none; margin-top:8px; }
-.error-message { color:#dc2626; } .success-message { color:#16a34a; }
-.loading { display:none; color:#fb923c; font-size:13px; margin-top:8px; }
+.error-message { color:#dc2626; font-size:13px; display:none; margin-top:8px; }
+.loading { color:#fb923c; font-size:13px; display:none; margin-top:8px; }
 .user-info { background:#fff7ed; border:1px solid #fed7aa; border-radius:14px; padding:16px; margin-bottom:30px; text-align:left; font-size:14px; max-width:350px; margin:auto; }
 .user-info p { margin:6px 0; }
 .warning { background:#fef3c7; border:1px solid #f59e0b; border-radius:12px; padding:20px; margin:25px auto; max-width:500px; text-align:left; font-size:14px; }
+.warning-icon { color:#f59e0b; font-weight:bold; font-size:20px; margin-right:10px; }
 @media(max-width:600px) { .title { font-size:46px; margin-bottom:25px; } }
 </style>
 </head>
@@ -39,9 +43,9 @@ body { min-height:100vh; background:linear-gradient(135deg,#ff8a00 0%,#ffb347 50
       <label class="form-label">Senha</label>
       <input id="password" type="password" class="form-input" required>
       <button type="submit" class="login-btn">Entrar</button>
+      <button type="button" class="register-btn" id="registerBtn">Criar Conta</button>
       <p class="loading" id="loginLoading">Carregando...</p>
       <p class="error-message" id="errorMessage"></p>
-      <button type="button" class="login-btn" id="registerBtn" style="background:#10b981;">Criar Conta</button>
     </form>
   </div>
 
@@ -53,12 +57,12 @@ body { min-height:100vh; background:linear-gradient(135deg,#ff8a00 0%,#ffb347 50
     </div>
     
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSeVA_IrvRJr7cG6z1RCwzxRhI2WNvi-lI7U0oN96mFmq6awsA/viewform" 
-       class="upload-btn" target="_blank" style="display:inline-block;">
+       class="upload-btn" target="_blank" style="display:inline-block; text-decoration:none;">
       📸 Enviar Fotos
     </a>
 
     <div class="warning">
-      <span style="color:#f59e0b; font-weight:bold;">⚠️</span>
+      <span class="warning-icon">⚠️</span>
       <span>Importante: Envie suas fotos para registrarmos os momentos</span>
     </div>
 
@@ -69,7 +73,7 @@ body { min-height:100vh; background:linear-gradient(135deg,#ff8a00 0%,#ffb347 50
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+// 🔥 SEM FIRESTORE = SEM ERROS!
 
 const firebaseConfig = {
   apiKey: "AIzaSyCgglak6eKX53K1rUGHYS7KGD9smWz91ls",
@@ -82,17 +86,15 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
 
 // Elementos
 const loginSection = document.getElementById("loginSection");
 const userSection = document.getElementById("userSection");
 const userEmail = document.getElementById("userEmail");
-const loginForm = document.getElementById("loginForm");
 const loginLoading = document.getElementById("loginLoading");
 const errorMessage = document.getElementById("errorMessage");
 
-// Monitora estado de autenticação
+// Monitora autenticação (funciona OFFLINE)
 onAuthStateChanged(auth, (user) => {
   if (user) {
     userEmail.textContent = user.email;
@@ -105,7 +107,7 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // Login
-loginForm.onsubmit = async (e) => {
+document.getElementById("loginForm").onsubmit = async (e) => {
   e.preventDefault();
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -115,6 +117,7 @@ loginForm.onsubmit = async (e) => {
   
   try {
     await signInWithEmailAndPassword(auth, email, password);
+    // Login OK → onAuthStateChanged cuida da tela
   } catch (error) {
     errorMessage.textContent = "E-mail ou senha inválidos";
     errorMessage.style.display = "block";
@@ -128,13 +131,20 @@ document.getElementById("registerBtn").onclick = async () => {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   
+  if (!email || !password) {
+    errorMessage.textContent = "Preencha e-mail e senha";
+    errorMessage.style.display = "block";
+    return;
+  }
+  
   loginLoading.style.display = "block";
   errorMessage.style.display = "none";
   
   try {
     await createUserWithEmailAndPassword(auth, email, password);
+    // Conta criada → onAuthStateChanged faz login automático
   } catch (error) {
-    errorMessage.textContent = "Erro ao criar conta";
+    errorMessage.textContent = "Erro ao criar conta: " + error.message;
     errorMessage.style.display = "block";
   } finally {
     loginLoading.style.display = "none";
